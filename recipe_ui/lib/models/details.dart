@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_ui/models/recipe.dart';
@@ -221,6 +223,42 @@ class DetailsPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: NavigationBarTheme(
+        data: const NavigationBarThemeData(
+          indicatorColor: Colors.transparent,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          height: 60,
+          backgroundColor: Colors.white,
+        ),
+        child: NavigationBar(
+          destinations: const [
+            NavigationDestination(
+                icon: Icon(
+                  Icons.home_outlined,
+                  color: Colors.grey,
+                ),
+                label: "home"),
+            NavigationDestination(
+                icon: Icon(
+                  Icons.favorite_outline,
+                  color: Colors.grey,
+                ),
+                label: "favorite"),
+            NavigationDestination(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                ),
+                label: "search"),
+            NavigationDestination(
+                icon: Icon(
+                  Icons.person_outline,
+                  color: Colors.grey,
+                ),
+                label: "person"),
+          ],
         ),
       ),
     );
