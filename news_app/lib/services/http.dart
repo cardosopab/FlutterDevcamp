@@ -17,6 +17,6 @@ Future fecthNews() async {
     List body = jsonBody['articles'];
     savedCatagories.add(body.map((e) => Articles.fromJson(e)).toList());
   } else {
-    throw "fetchForecast Status !200: ${response.statusCode}";
+    throw "fetchNews status: ${response.statusCode}";
   }
 }
