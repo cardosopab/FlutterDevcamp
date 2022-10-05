@@ -15,7 +15,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.purpleAccent,
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.purpleAccent,
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.purpleAccent,
+            ),
+          ),
+          focusColor: Colors.purpleAccent,
+        ),
+      ),
       home: const HomePage(),
     );
   }

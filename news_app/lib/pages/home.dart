@@ -13,16 +13,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final keywordController = TextEditingController();
   final countryController = TextEditingController();
-  final listTopicController = TextEditingController();
-  final listTopicFocusNode = FocusNode();
   final listScrollController = ScrollController();
 
   late String dropDownValue;
   bool isPressed = false;
   @override
   void initState() {
-    fetchHeadlines('us').then((_) => setState(() {}));
     dropDownValue = 'US';
+    fetchHeadlines(dropDownValue).then((_) => setState(() {}));
     super.initState();
   }
 
@@ -38,25 +36,25 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CarouselSlider(
-                    items: headlines.map((article) {
-                      String title = article.title!;
-                      String urlToImage = article.urlToImage ?? '';
-                      // print(article.url);
-                      return Builder(
-                        builder: (context) {
-                          return ArticleWidget(
-                            urlToImage: urlToImage,
-                            title: title,
-                            url: article.url,
-                          );
-                        },
-                      );
-                    }).toList(),
-                    options: CarouselOptions(
-                      height: MediaQuery.of(context).size.height * .35,
-                      aspectRatio: 1 / 1,
-                      viewportFraction: .90,
-                    )),
+                  items: headlines.map((article) {
+                    String title = article.title!;
+                    String urlToImage = article.urlToImage ?? '';
+                    return Builder(
+                      builder: (context) {
+                        return ArticleWidget(
+                          urlToImage: urlToImage,
+                          title: title,
+                          url: article.url,
+                        );
+                      },
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    height: MediaQuery.of(context).size.height * .35,
+                    aspectRatio: 1 / 1,
+                    viewportFraction: .90,
+                  ),
+                ),
                 savedCatagories.isEmpty
                     ? Column(
                         children: [
@@ -65,12 +63,37 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                               "Let's start searching!",
                               style: TextStyle(
-                                  color: Colors.tealAccent, fontSize: 40),
+                                  color: Colors.purpleAccent, fontSize: 40),
                             ),
                           ),
                           Image.asset('assets/pc_300.png'),
                         ],
                       )
+                    // : CarouselSlider(
+                    //     items: savedCatagories.asMap().entries.map((list) {
+                    //       int idx = list.key;
+                    //       return ListView.builder(
+                    //           itemCount: savedCatagories[idx].length,
+                    //           itemBuilder: (context, index) {
+                    //             String urlToImage =
+                    //                 savedCatagories[idx][index].urlToImage!;
+                    //             String url = savedCatagories[idx][index].url!;
+                    //             String title =
+                    //                 savedCatagories[idx][index].title!;
+                    //             return ArticleWidget(
+                    //                 urlToImage: urlToImage,
+                    //                 title: title,
+                    //                 url: url);
+                    //           });
+                    //     }
+                    //         // });
+                    //         ).toList(),
+                    //     options: CarouselOptions(
+                    //       height: MediaQuery.of(context).size.height * .65,
+                    //       aspectRatio: 1 / 1,
+                    //       viewportFraction: 1,
+                    //     ),
+                    //   ),
                     : Expanded(
                         child: Row(
                           children: [
@@ -119,9 +142,10 @@ class _HomePageState extends State<HomePage> {
                                               style: ButtonStyle(
                                                   backgroundColor:
                                                       MaterialStateProperty.all(
-                                                          Colors.tealAccent)),
+                                                          Colors.purpleAccent)),
                                               onPressed: () {
                                                 savedCatagories.removeAt(index);
+                                                savedKeywords.removeAt(index);
                                                 setState(() {});
                                               },
                                               child: const Text(
@@ -138,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                                                       .substring(1)
                                                       .toLowerCase(),
                                               style: const TextStyle(
-                                                  color: Colors.tealAccent,
+                                                  color: Colors.purpleAccent,
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -207,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                               },
                               child: const Text(
                                 'Update',
-                                style: TextStyle(color: Colors.tealAccent),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                           ],
@@ -261,7 +285,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                             );
                           },
-                          child: const Text('Search'),
+                          child: const Text(
+                            'Search',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ],
                     ),

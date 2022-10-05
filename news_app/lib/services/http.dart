@@ -75,8 +75,6 @@ Future fetchHeadlines(country) async {
     headlines.clear();
     Map jsonBody = convert.jsonDecode(response.body);
     List body = jsonBody['articles'];
-    // savedCatagories.add(body.map((e) => Articles.fromJson(e)).toList());
-    // savedKeywords.add(country.toString().toUpperCase());
     body.map((e) {
       headlines.add(Articles.fromJson(e));
     }).toList();
@@ -96,7 +94,7 @@ Future fetchKeyword(keyword) async {
     Map jsonBody = convert.jsonDecode(response.body);
     List body = jsonBody['articles'];
     savedCatagories.add(body.map((e) => Articles.fromJson(e)).toList());
-    savedKeywords.add(keyword.toString().toUpperCase());
+    savedKeywords.add(keyword);
   } else {
     throw "fetchKeyword status: ${response.statusCode}";
   }

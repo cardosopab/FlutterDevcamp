@@ -62,7 +62,7 @@ class ArticleWidget extends StatelessWidget {
                   title,
                   textAlign: TextAlign.end,
                   style: const TextStyle(
-                      color: Colors.tealAccent,
+                      color: Colors.purpleAccent,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
