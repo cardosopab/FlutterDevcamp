@@ -5,6 +5,7 @@ import 'dart:convert' as convert;
 import '../models/news.dart';
 
 List<List<Articles>> savedCatagories = [];
+List<Articles> headlines = [];
 List savedKeywords = [];
 List countryList = [
   "ae",
@@ -71,19 +72,23 @@ Future fetchHeadlines(country) async {
   var response = await http.get(url);
 
   if (response.statusCode == 200) {
+    headlines.clear();
     Map jsonBody = convert.jsonDecode(response.body);
     List body = jsonBody['articles'];
-    savedCatagories.add(body.map((e) => Articles.fromJson(e)).toList());
-    savedKeywords.add(country.toString().toUpperCase());
+    // savedCatagories.add(body.map((e) => Articles.fromJson(e)).toList());
+    // savedKeywords.add(country.toString().toUpperCase());
+    body.map((e) {
+      headlines.add(Articles.fromJson(e));
+    }).toList();
   } else {
-    throw "fetchNews status: ${response.statusCode}";
+    throw "fetchHeadlines status: ${response.statusCode}";
   }
 }
 
-Future fetchEverything(keyword) async {
+Future fetchKeyword(keyword) async {
   final newsapi = dotenv.env['newsapi'];
   var url = Uri.parse(
-      'https://newsapi.org/v2/everything?q=$keyword&pageSize=10&apiKey=$newsapi');
+      'https://newsapi.org/v2/top-headlines?q=$keyword&apiKey=$newsapi');
 
   var response = await http.get(url);
 
@@ -93,6 +98,6 @@ Future fetchEverything(keyword) async {
     savedCatagories.add(body.map((e) => Articles.fromJson(e)).toList());
     savedKeywords.add(keyword.toString().toUpperCase());
   } else {
-    throw "fetchNews status: ${response.statusCode}";
+    throw "fetchKeyword status: ${response.statusCode}";
   }
 }
